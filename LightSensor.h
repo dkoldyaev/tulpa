@@ -4,12 +4,10 @@
 #include "Sensor.h"
 
 class LightSensor : public Sensor {
-private:
-    int pin;
-
 public:
-    void initialize(int pin) override;
-    int readValue() override;
+    LightSensor(int pin, int minValue, int maxValue);
+    int readValue(int minResultValue, int maxResultValue) override;
+    int rawValue() override;
     const char* getName() override;
 };
 

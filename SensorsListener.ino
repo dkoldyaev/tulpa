@@ -3,26 +3,25 @@
 
 #define NUM_SENSORS 2
 
+bool debugMode = true;  // Флаг отладки
+int minResultValue = 0;
+int maxResultValue = 255;
+
 Sensor* sensors[NUM_SENSORS];
-int sensorPins[NUM_SENSORS] = {A5, A7};  // Пины для датчиков
 
 void setup() {
   Serial.begin(9600);
 
-  // Инициализация датчиков
-  sensors[0] = new LightSensor();
-  sensors[1] = new TemperatureSensor();
-
-  for (int i = 0; i < NUM_SENSORS; i++) {
-    sensors[i]->initialize(sensorPins[i]);
-  }
+  // Инициализация датчиков через конструкторы
+  sensors[0] = new LightSensor(A5, 0, 255);
+  sensors[1] = new TemperatureSensor(A7, -40, 125);
 }
 
 void loop() {
   for (int i = 0; i < NUM_SENSORS; i++) {
     Serial.print(sensors[i]->getName());
     Serial.print(": ");
-    Serial.println(sensors[i]->readValue());
+    Serial.println(debugMode ? sensors[i]->readValue(0, 255) : sensors[i]->rawValue());
   }
   Serial.println(); // Пустая строка для разделения данных
 
