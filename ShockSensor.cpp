@@ -17,5 +17,5 @@ int ShockSensor::rawValue() {
 }
 
 const char* ShockSensor::getName() {
-    return "Shock Sensor\t\t";
+    return "Shock Sensor";
 }

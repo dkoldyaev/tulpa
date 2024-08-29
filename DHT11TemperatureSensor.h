@@ -1,20 +1,18 @@
-#ifndef DHT11_SENSOR_H
-#define DHT11_SENSOR_H
+#ifndef DHT11_TEMPERATURE_SENSOR_H
+#define DHT11_TEMPERATURE_SENSOR_H
 
 #include "Sensor.h"
-#include <DHT.h>
+#include "DHT11Sensor.h"
 
 class DHT11TemperatureSensor : public Sensor {
 public:
-    DHT11TemperatureSensor(int pin);
-    void begin();
+    DHT11TemperatureSensor(DHT11Sensor* sensor);
     int readValue(int minResultValue, int maxResultValue) override;
     int rawValue() override;
     const char* getName() override;
 
 private:
-    DHT dht;
-    float temperature;
+    DHT11Sensor* sensor;
 };
 
 #endif

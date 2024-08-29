@@ -1,23 +1,17 @@
 #include "DHT11HumiditySensor.h"
 
-DHT11HumiditySensor::DHT11HumiditySensor(int pin) : dht(pin, DHT11) {
-    this->pin = pin;
-    // dht.begin();
-}
-
-void DHT11HumiditySensor::begin() {
-    dht.begin();  // Инициализация DHT11 сенсора
+DHT11HumiditySensor::DHT11HumiditySensor(DHT11Sensor* sensor) {
+    this->sensor = sensor;
 }
 
 int DHT11HumiditySensor::readValue(int minResultValue, int maxResultValue) {
-    humidity = dht.readHumidity();
-    return map((int)humidity, 0, 100, minResultValue, maxResultValue);
+    return map(rawValue(), 0, 100, minResultValue, maxResultValue);
 }
 
 int DHT11HumiditySensor::rawValue() {
-    return (int)dht.readHumidity();
+    return this->sensor->readHumidityRaw();
 }
 
 const char* DHT11HumiditySensor::getName() {
-    return "DHT11 Humidity Sensor\t";
+    return "DHT11 Humidity Sensor";
 }

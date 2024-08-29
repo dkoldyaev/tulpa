@@ -17,5 +17,5 @@ int AudioSensor::rawValue() {
 }
 
 const char* AudioSensor::getName() {
-    return "Audio Sensor\t\t";
+    return "Audio Sensor";
 }

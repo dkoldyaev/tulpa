@@ -1,21 +1,15 @@
 #include "DHT11TemperatureSensor.h"
 
-DHT11TemperatureSensor::DHT11TemperatureSensor(int pin) : dht(pin, DHT11) {
-    this->pin = pin;
-    // dht.begin();
-}
-
-void DHT11TemperatureSensor::begin() {
-    dht.begin();
+DHT11TemperatureSensor::DHT11TemperatureSensor(DHT11Sensor* sensor) {
+    this->sensor = sensor;
 }
 
 int DHT11TemperatureSensor::readValue(int minResultValue, int maxResultValue) {
-    temperature = dht.readTemperature();
-    return map((int)temperature, 0, 50, minResultValue, maxResultValue);
+    return map(rawValue(), 0, 50, minResultValue, maxResultValue);
 }
 
 int DHT11TemperatureSensor::rawValue() {
-    return (int)dht.readTemperature();
+    return this->sensor->readTemperatureRaw();
 }
 
 const char* DHT11TemperatureSensor::getName() {

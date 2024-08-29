@@ -17,5 +17,5 @@ int LightDigitalSensor::rawValue() {
 }
 
 const char* LightDigitalSensor::getName() {
-    return "Light Digital Sensor\t";
+    return "Light Digital Sensor";
 }

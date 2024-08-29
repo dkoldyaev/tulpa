@@ -2,19 +2,17 @@
 #define DHT11_HUMIDITY_SENSOR_H
 
 #include "Sensor.h"
-#include <DHT.h>
+#include "DHT11Sensor.h"
 
 class DHT11HumiditySensor : public Sensor {
 public:
-    DHT11HumiditySensor(int pin);
-    void begin();
+    DHT11HumiditySensor(DHT11Sensor* sensor);
     int readValue(int minResultValue, int maxResultValue) override;
     int rawValue() override;
     const char* getName() override;
 
 private:
-    DHT dht;
-    float humidity;
+    DHT11Sensor* sensor;
 };
 
 #endif

@@ -1,3 +1,4 @@
+#include "DHT11Sensor.h"
 #include "DHT11HumiditySensor.h"
 #include "DHT11TemperatureSensor.h"
 #include "LightAnalogSensor.h"
@@ -30,8 +31,8 @@ void removeLastNewline(char* str) {
 
 void addSensor(Sensor* sensor) {
     SensorNode* newNode = new SensorNode(sensor);
-    newNode->totalMinValue = 1000;
-    newNode->totalMaxValue = -1000;
+    newNode->totalMinValue = 10000;
+    newNode->totalMaxValue = -10000;
     if (head == nullptr) {
         head = newNode;
     } else {
@@ -43,20 +44,32 @@ void addSensor(Sensor* sensor) {
     }
 }
 
+void printTableHeader() {
+    Serial.println(F("+------------------------------------------+----------+--------+--------+--------+"));
+    Serial.println(F("| Sensor                                   |  Raw     |  Out   |  Min   |  Max   |"));
+    Serial.println(F("+------------------------------------------+----------+--------+--------+--------+"));
+}
+
+void printTableRow(const char* name, int raw, int out, int min, int max) {
+    char buffer[100];
+    snprintf(buffer, sizeof(buffer), "| %-40s | %-8d | %-6d | %-6d | %-6d |", name, raw, out, min, max);
+    Serial.println(buffer);
+}
+
+void printTableFooter() {
+    Serial.println(F("+------------------------------------------+----------+--------+--------+--------+"));
+}
+
 void setup() {
     Serial.begin(9600);
     pinMode(LED_BUILTIN, OUTPUT); // Инициализация встроенного светодиода
 
-    // Инициализация датчиков и добавление их в список
-    // addSensor(new DHT11TemperatureSensor(A6));                
-    // addSensor(new DHT11HumiditySensor(A6));      
-    DHT11HumiditySensor* humSensor = new DHT11HumiditySensor(A6); // Датчик влажности (DHT11) A6
-    // humSensor->begin();
-    addSensor(humSensor);
-                 
-    DHT11TemperatureSensor* tempSensor = new DHT11TemperatureSensor(A6); // Датчик температуры (DHT11) A6
-    tempSensor->begin();
-    addSensor(tempSensor);
+    // Создаем объект DHT11 и передаем его двум оберткам
+    DHT11Sensor* DHT11 = new DHT11Sensor(A6);
+    DHT11->begin();
+
+    addSensor(new DHT11HumiditySensor(DHT11)); // Датчик влажности
+    addSensor(new DHT11TemperatureSensor(DHT11)); // Датчик температуры
 
     addSensor(new LightDigitalSensor(D5, 0, 1));              // Освещение (DO) D5
     addSensor(new LightAnalogSensor(A5, 0, 15));               // Освещение (DO) D5
@@ -89,13 +102,6 @@ void loop() {
         if (current->totalMaxValue < currentValue) {
           current->totalMaxValue = currentValue;
         }
-        shockDetected = 0;
-
-        // Проверка срабатывания датчика шока
-        if (strcmp(sensor->getName(), "Audio Sensor") == 0) {
-            // shockDetected = sensor->rawValue();
-            Serial.println(sensor->rawValue());
-        }
 
         current = current->next;
         sensorIndex++;
@@ -123,22 +129,21 @@ void loop() {
         current = head;
         sensorIndex = 0;
 
+        printTableHeader();
         while (current != nullptr) {
             Sensor* sensor = current->sensor;
-            sprintf(
-              buffer,
-              "%s\tRaw: %d;\tOut: %d\tMin:%d\tMax:%d",
-              sensor->getName(),
-              sensor->rawValue(),
-              sensor->readValue(0, maxResultValue),
-              current->totalMinValue,
-              current->totalMaxValue
+            printTableRow(
+                sensor->getName(),
+                sensor->rawValue(),
+                sensor->readValue(0, maxResultValue),
+                current->totalMinValue,
+                current->totalMaxValue
             );
-            Serial.println(buffer);
 
             current = current->next;
             sensorIndex++;
         }
+        printTableFooter();
 
         Serial.println(); // Пустая строка для разделения данных
     }
