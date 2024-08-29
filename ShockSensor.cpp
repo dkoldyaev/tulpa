@@ -9,9 +9,6 @@ ShockSensor::ShockSensor(int pin, int minValue, int maxValue) {
 
 int ShockSensor::readValue(int minResultValue, int maxResultValue) {
     int rawValue = digitalRead(pin);  // Цифровое чтение для датчика шока
-    if (debugMode) {
-        return rawValue;  // Возвращаем сырые данные
-    }
     return map(rawValue, minValue, maxValue, minResultValue, maxResultValue);
 }
 

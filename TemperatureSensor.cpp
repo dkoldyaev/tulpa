@@ -9,9 +9,6 @@ TemperatureSensor::TemperatureSensor(int pin, int minValue, int maxValue) {
 
 int TemperatureSensor::readValue(int minResultValue, int maxResultValue) {
     int rawValue = analogRead(pin);
-    if (debugMode) {
-        return rawValue;  // Возвращаем сырые данные
-    }
     return map(rawValue, minValue, maxValue, minResultValue, maxResultValue);
 }
 

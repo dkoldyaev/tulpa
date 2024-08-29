@@ -1,11 +1,11 @@
-#ifndef LIGHT_SENSOR_H
-#define LIGHT_SENSOR_H
+#ifndef LIGHT_DIGITAL_SENSOR_H
+#define LIGHT_DIGITAL_SENSOR_H
 
 #include "Sensor.h"
 
-class LightSensor : public Sensor {
+class LightDigitalSensor : public Sensor {
 public:
-    LightSensor(int pin, int minValue, int maxValue);
+    LightDigitalSensor(int pin, int minValue, int maxValue);
     int readValue(int minResultValue, int maxResultValue) override;
     int rawValue() override;
     const char* getName() override;
