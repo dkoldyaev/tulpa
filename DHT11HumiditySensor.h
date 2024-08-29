@@ -7,6 +7,7 @@
 class DHT11HumiditySensor : public Sensor {
 public:
     DHT11HumiditySensor(int pin);
+    void begin();
     int readValue(int minResultValue, int maxResultValue) override;
     int rawValue() override;
     const char* getName() override;

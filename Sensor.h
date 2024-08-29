@@ -3,8 +3,6 @@
 
 #include <Arduino.h>
 
-extern bool debugMode;  // Флаг для режима отладки
-
 class Sensor {
 protected:
     int pin;

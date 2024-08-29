@@ -8,14 +8,14 @@ ShockSensor::ShockSensor(int pin, int minValue, int maxValue) {
 }
 
 int ShockSensor::readValue(int minResultValue, int maxResultValue) {
-    int rawValue = digitalRead(pin);  // Цифровое чтение для датчика шока
+    int rawValue = analogRead(pin); 
     return map(rawValue, minValue, maxValue, minResultValue, maxResultValue);
 }
 
 int ShockSensor::rawValue() {
-  return digitalRead(pin);  // Цифровое чтение для датчика шока
+  return analogRead(pin);
 }
 
 const char* ShockSensor::getName() {
-    return "Shock Sensor";
+    return "Shock Sensor\t\t";
 }

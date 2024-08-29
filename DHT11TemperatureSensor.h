@@ -7,6 +7,7 @@
 class DHT11TemperatureSensor : public Sensor {
 public:
     DHT11TemperatureSensor(int pin);
+    void begin();
     int readValue(int minResultValue, int maxResultValue) override;
     int rawValue() override;
     const char* getName() override;

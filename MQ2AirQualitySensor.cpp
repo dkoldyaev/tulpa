@@ -17,5 +17,5 @@ int MQ2AirQualitySensor::rawValue() {
 }
 
 const char* MQ2AirQualitySensor::getName() {
-    return "MQ-2 Air Quality Sensor";
+    return "MQ-2 Air Quality Sensor\t";
 }

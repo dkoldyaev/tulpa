@@ -6,6 +6,8 @@
 struct SensorNode {
     Sensor* sensor;
     SensorNode* next;
+    public: int totalMinValue;
+    public: int totalMaxValue;
 
     SensorNode(Sensor* sensor) : sensor(sensor), next(nullptr) {}
 };

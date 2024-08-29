@@ -1,11 +1,11 @@
-#ifndef AUDIO_SENSOR_H
-#define AUDIO_SENSOR_H
+#ifndef SHOCK_SENSOR_H
+#define SHOCK_SENSOR_H
 
 #include "Sensor.h"
 
-class ShockSensor : public Sensor {
+class AudioSensor : public Sensor {
 public:
-    ShockSensor(int pin, int minValue, int maxValue);
+    AudioSensor(int pin, int minValue, int maxValue);
     int readValue(int minResultValue, int maxResultValue) override;
     int rawValue() override;
     const char* getName() override;

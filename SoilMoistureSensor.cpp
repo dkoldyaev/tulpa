@@ -17,5 +17,5 @@ int SoilMoistureSensor::rawValue() {
 }
 
 const char* SoilMoistureSensor::getName() {
-    return "Soil Moisture Sensor";
+    return "Soil Moisture Sensor\t";
 }

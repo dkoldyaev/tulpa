@@ -17,5 +17,5 @@ int LightAnalogSensor::rawValue() {
 }
 
 const char* LightAnalogSensor::getName() {
-    return "Light Analog Sensor";
+    return "Light Analog Sensor\t";
 }

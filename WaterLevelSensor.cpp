@@ -17,5 +17,5 @@ int WaterLevelSensor::rawValue() {
 }
 
 const char* WaterLevelSensor::getName() {
-    return "Water Level Sensor";
+    return "Water Level Sensor\t";
 }

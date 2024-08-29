@@ -17,5 +17,5 @@ int TemperatureSensor::rawValue() {
 }
 
 const char* TemperatureSensor::getName() {
-    return "Temperature Sensor";
+    return "Temperature Sensor\t";
 }

@@ -2,6 +2,10 @@
 
 DHT11TemperatureSensor::DHT11TemperatureSensor(int pin) : dht(pin, DHT11) {
     this->pin = pin;
+    // dht.begin();
+}
+
+void DHT11TemperatureSensor::begin() {
     dht.begin();
 }
 
