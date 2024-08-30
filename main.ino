@@ -44,10 +44,17 @@ void addSensor(Sensor* sensor) {
     }
 }
 
+void printTableLine() {
+    Serial.println(F("+------------------------------------------+----------+--------+--------+--------+"));
+}
+
 void printTableHeader() {
-    Serial.println(F("+------------------------------------------+----------+--------+--------+--------+"));
-    Serial.println(F("| Sensor                                   |  Raw     |  Out   |  Min   |  Max   |"));
-    Serial.println(F("+------------------------------------------+----------+--------+--------+--------+"));
+    char buffer[100];
+
+    printTableLine();
+    snprintf(buffer, sizeof(buffer), "| %-40s | %-8s | %-6s | %-6s | %-6s |", "Sensor", "Raw", "Out", "Min", "Max");
+    Serial.println(buffer);
+    printTableLine();
 }
 
 void printTableRow(const char* name, int raw, int out, int min, int max) {
@@ -57,7 +64,7 @@ void printTableRow(const char* name, int raw, int out, int min, int max) {
 }
 
 void printTableFooter() {
-    Serial.println(F("+------------------------------------------+----------+--------+--------+--------+"));
+    printTableLine();
 }
 
 void setup() {
