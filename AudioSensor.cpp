@@ -8,12 +8,12 @@ AudioSensor::AudioSensor(int pin, int minValue, int maxValue) {
 }
 
 int AudioSensor::readValue(int minResultValue, int maxResultValue) {
-    int rawValue = digitalRead(pin); 
+    int rawValue = analogRead(pin); 
     return map(rawValue, minValue, maxValue, minResultValue, maxResultValue);
 }
 
 int AudioSensor::rawValue() {
-  return digitalRead(pin);
+  return analogRead(pin);
 }
 
 const char* AudioSensor::getName() {

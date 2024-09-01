@@ -1,16 +1,13 @@
 #include "DHT11Sensor.h"
 #include "DHT11HumiditySensor.h"
 #include "DHT11TemperatureSensor.h"
-#include "LightAnalogSensor.h"
-#include "LightDigitalSensor.h"
 #include "MQ2AirQualitySensor.h"
-#include "TemperatureSensor.h"
 #include "ShockSensor.h"
 #include "SoilMoistureSensor.h"
 #include "WaterLevelSensor.h"
 #include "AudioSensor.h"
 
-#include "Phrases.h"
+// #include "Phrases.h"
 #include "SensorNode.h"
 
 bool debugMode = true;  // Флаг отладки
@@ -78,17 +75,11 @@ void setup() {
     addSensor(new DHT11HumiditySensor(DHT11)); // Датчик влажности
     addSensor(new DHT11TemperatureSensor(DHT11)); // Датчик температуры
 
-    addSensor(new LightDigitalSensor(D5, 0, 1));              // Освещение (DO) D5
-    addSensor(new LightAnalogSensor(A5, 0, 15));               // Освещение (DO) D5
-
-    addSensor(new SoilMoistureSensor(D7, 0, 1023));           // Датчик влажности почвы D7
+    addSensor(new SoilMoistureSensor(D3, 0, 1023));           // Датчик влажности почвы D7
     addSensor(new WaterLevelSensor(A4, 0, 1023));             // Уровень воды A4
-              
-    addSensor(new TemperatureSensor(D6, -40, 125));           // Температура 1 D6
-    addSensor(new TemperatureSensor(D2, -40, 125));           // Температура 2 D2
     
-    addSensor(new ShockSensor(D4, 8, 12));                     // Shock 1 D4
-    addSensor(new AudioSensor(D3, 0, 255));                     // Shock 2 D3
+    addSensor(new ShockSensor(D2, 8, 12));                     // Shock 1 D4
+    addSensor(new AudioSensor(A5, 0, 255));                     // Shock 2 D3
     
     addSensor(new MQ2AirQualitySensor(A7, 0, 1023));          // MQ-2 A7
 }
@@ -113,22 +104,6 @@ void loop() {
         current = current->next;
         sensorIndex++;
     }
-
-    // Если датчик шока сработал, моргаем светодиодом
-    // if (shockDetected != 0) {
-    //     digitalWrite(LED_BUILTIN, HIGH);   // Включаем светодиод
-    //     delay(50);                        // Держим светодиод включенным 100 мс
-    //     digitalWrite(LED_BUILTIN, LOW);    // Выключаем светодиод
-    //     delay(50);                        // Держим светодиод выключенным 100 мс
-    //     digitalWrite(LED_BUILTIN, HIGH);   // Включаем светодиод
-    //     delay(50);                        // Держим светодиод включенным 100 мс
-    //     digitalWrite(LED_BUILTIN, LOW);    // Выключаем светодиод
-    //     delay(50);                        // Держим светодиод выключенным 100 мс
-    //     digitalWrite(LED_BUILTIN, HIGH);   // Включаем светодиод
-    //     delay(50);                        // Держим светодиод включенным 100 мс
-    //     digitalWrite(LED_BUILTIN, LOW);    // Выключаем светодиод
-    //     delay(50);                        // Держим светодиод выключенным 100 мс
-    // }
 
     // Вывод данных раз в 5 секунд
     if (currentTime - lastPrintTime >= printInterval) {
